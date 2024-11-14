@@ -110,7 +110,7 @@ class SimuladorOndasApp:
         tk.Label(self.root, text="Distancia Máxima (mm):", font=self.font_label, bg=self.bg_color).grid(row=17, column=0, sticky="w", padx=10)
         self.distancia_entry = tk.Entry(self.root, font=self.font_label, width=25)
         self.distancia_entry.grid(row=17, column=1, padx=10, pady=2)
-        self.distancia_entry.insert(0, "1")
+        self.distancia_entry.insert(0, "1000")
 
         tk.Label(self.root, text="Amplitud Campo Incidente:", font=self.font_label, bg=self.bg_color).grid(row=18, column=0, sticky="w", padx=10)
         self.amplitud_incidente_entry = tk.Entry(self.root, font=self.font_label, width=25)
@@ -150,21 +150,39 @@ class SimuladorOndasApp:
         self.coeficientes_label.config(
             text=f"Coeficiente de Reflexión Γ: {coef_reflexion:.2f}\nCoeficiente de Transmisión α: {coef_transmision:.2f}"
         )
-
+    
     # Métodos de visualización en 2D y 3D (ya implementados previamente)
     def visualizar_2d(self):
         frecuencia = float(self.frecuencia_entry.get())
         amplitud_incidente = float(self.amplitud_incidente_entry.get())
         amplitud_reflejado = float(self.amplitud_reflejado_entry.get())
         amplitud_transmitido = float(self.amplitud_transmitido_entry.get())
-        plot_wave_2d(frecuencia, amplitud_incidente, amplitud_reflejado, amplitud_transmitido)
+        
+
+        # Obtener valores de impedancia, coeficiente de reflexión y transmisión
+        impedancia = float(self.impedancia_label.cget("text").split(":")[1].strip().split()[0])
+        coef_reflexion = float(self.coeficientes_label.cget("text").split("Γ:")[1].split("\n")[0].strip())
+        coef_transmision = float(self.coeficientes_label.cget("text").split("α:")[1].strip())
+
+        distancia_max = float(self.distancia_entry.get())  # Obtener el valor ingresado
+        plot_wave_2d(frecuencia, amplitud_incidente, amplitud_reflejado, amplitud_transmitido, velocidad=3e8, distancia_max=distancia_max, impedancia=impedancia, gamma=coef_reflexion, alpha=coef_transmision)
+
+
+    # interface.py (dentro de la clase SimuladorOndasApp)
 
     def visualizar_3d(self):
         frecuencia = float(self.frecuencia_entry.get())
         amplitud_incidente = float(self.amplitud_incidente_entry.get())
         amplitud_reflejado = float(self.amplitud_reflejado_entry.get())
         amplitud_transmitido = float(self.amplitud_transmitido_entry.get())
-        plot_wave_3d_electromagnetic(frecuencia, amplitud_incidente, amplitud_reflejado, amplitud_transmitido)
+
+        # Obtener valores de impedancia, coeficiente de reflexión y transmisión
+        impedancia = float(self.impedancia_label.cget("text").split(":")[1].strip().split()[0])
+        coef_reflexion = float(self.coeficientes_label.cget("text").split("Γ:")[1].split("\n")[0].strip())
+        coef_transmision = float(self.coeficientes_label.cget("text").split("α:")[1].strip())
+
+        # Llamar a la función de visualización con los nuevos parámetros
+        plot_wave_3d_electromagnetic(frecuencia, amplitud_incidente, amplitud_reflejado, amplitud_transmitido, impedancia, coef_reflexion, coef_transmision)
 
 # Ejecutar la aplicación
 if __name__ == "__main__":
