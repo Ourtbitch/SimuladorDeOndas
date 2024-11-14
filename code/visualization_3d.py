@@ -41,22 +41,19 @@ def plot_wave_3d_electromagnetic(frecuencia, amplitud_incidente, amplitud_reflej
 
     # Agregar anotaciones para impedancia y coeficientes
     fig.add_annotation(
-        x=0, y=3, z=2,
-        text=f"Impedancia: {impedancia:.2f} Ω",
+        x=0, y=3, text=f"Impedancia: {impedancia:.2f} Ω",
         showarrow=False,
         font=dict(size=12)
     )
 
     fig.add_annotation(
-        x=0, y=2.7, z=2,
-        text=f"Coeficiente de Reflexión Γ: {coef_reflexion:.2f}",
+        x=0, y=2.7, text=f"Coeficiente de Reflexión Γ: {coef_reflexion:.2f}",
         showarrow=False,
         font=dict(size=12)
     )
 
     fig.add_annotation(
-        x=0, y=2.4, z=2,
-        text=f"Coeficiente de Transmisión α: {coef_transmision:.2f}",
+        x=0, y=2.4, text=f"Coeficiente de Transmisión α: {coef_transmision:.2f}",
         showarrow=False,
         font=dict(size=12)
     )
