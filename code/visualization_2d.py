@@ -22,7 +22,7 @@ def plot_wave_2d(frecuencia, amplitud_incidente, amplitud_reflejado, amplitud_tr
     plt.plot(x, transmitido, label="Campo Transmitido", color="green", linewidth=1.5)
     
     # Añadir etiquetas y título
-    plt.xlabel("Distancia (mm)", fontsize=12)
+    plt.xlabel("Distancia (m)", fontsize=12)
     plt.ylabel("Amplitud del Campo", fontsize=12)
     plt.title("Simulación de Campos Electromagnéticos en la Interfaz", fontsize=14, fontweight='bold')
     plt.legend(loc="lower left", fontsize=10)
